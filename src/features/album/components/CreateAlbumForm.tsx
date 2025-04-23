@@ -14,7 +14,6 @@ export function AlbumForm({ form }: { form: any }) {
     const selectedAlbum = form.watch("album");
 
     useEffect(() => {
-        console.log(selectedAlbum)
         if (selectedAlbum !== "0") {
             form.setValue("title", "");
         }

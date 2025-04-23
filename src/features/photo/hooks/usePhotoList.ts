@@ -17,14 +17,12 @@ export function usePhotoList() {
 
     async function fetchMorePhotos() {
         if (!shouldCallFetchMore) {
-            console.log(shouldCallFetchMore)
             return;
         }
         try {
             const newPhotos = await getPhotosPagination(id!, page);
             if (!newPhotos || !newPhotos.length) {
                 setShouldCallFetchMore(false);
-                console.log("No more photos available.");
                 return;
             }
             for (let i = 0; i < newPhotos.length; i++) {

@@ -37,10 +37,13 @@ export function useAlbumList() {
         navigate(`/album/${album.id}/photos`);
     }
 
-    function addAlbum(album: Album) {
-        setAllAlbums((prevAlbums) => [...prevAlbums, album]); 
-        console.log("Album added:", album);
+    function handleAlbumDeleteClick(album: Album) {
+        setAllAlbums((prevAlbums) => [...prevAlbums.filter(alb=> alb.id !== album.id)]); 
     }
 
-    return { selectedAlbumCombo, addAlbum, setSelectedAlbumCombo, handleAlbumClick };
+    function addAlbum(album: Album) {
+        setAllAlbums((prevAlbums) => [...prevAlbums, album]); 
+    }
+
+    return { selectedAlbumCombo, addAlbum, setSelectedAlbumCombo, handleAlbumClick, handleAlbumDeleteClick};
 }

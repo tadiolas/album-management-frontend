@@ -31,7 +31,6 @@ export function useUserForms() {
     getUser(formValue)
       .then(user => {
         if (user && user.length) {
-          console.log(user[0])
           setUser(user[0]);
           navigate("/family");
         } else {

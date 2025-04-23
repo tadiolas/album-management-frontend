@@ -7,13 +7,12 @@ import { Eye, Trash } from "lucide-react";
 import { DialogNewAlbum } from "./DialogNewAlbum";
 
 export function AlbumList() {
-    const { handleAlbumClick } = useAlbumList();
+    const { handleAlbumClick, handleAlbumDeleteClick } = useAlbumList();
     const { selectedFamilyMember, allAlbums } = useGlobalState();
     const { identifyIfUserIsFamilyMember } = useFamilyList();
-    
+
     return (
         <div className="p-4">
-            <DialogNewAlbum />
             <p>
                 You are viewing{" "}
                 {identifyIfUserIsFamilyMember(selectedFamilyMember!)
@@ -22,6 +21,9 @@ export function AlbumList() {
                 albums
             </p>
             <p>Click into one of the albums below to see the photos</p>
+            {identifyIfUserIsFamilyMember(selectedFamilyMember!) && (
+                <DialogNewAlbum />
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                 {allAlbums.map((album, index) => (
@@ -32,10 +34,11 @@ export function AlbumList() {
                                 <CardDescription>{album.id}</CardDescription>
                             </CardHeader>
                             <CardFooter className="flex flex-col items-center justify-between gap-2">
-                                <Button className="w-full mb-2 cursor-pointer">
-                                    <Trash className="w-8 h-8" />
-                                    <span>Delete album</span>
-                                </Button>
+                                {identifyIfUserIsFamilyMember(selectedFamilyMember!) &&
+                                    (<Button className="w-full mb-2 cursor-pointer" onClick={() => handleAlbumDeleteClick(album)}>
+                                        <Trash className="w-8 h-8" />
+                                        <span>Delete album</span>
+                                    </Button>)}
                                 <Button className="w-full mb-2 cursor-pointer" onClick={() => handleAlbumClick(album)}>
                                     <Eye className="w-8 h-8" />
                                     <span>View album</span>
